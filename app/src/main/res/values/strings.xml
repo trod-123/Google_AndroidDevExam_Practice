@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">GoogleAndroidDevCert_PreAssessment</string>
     <string name="last_name">Last name</string>
+    <string name="first_name">First name</string>
+    <string name="middle_name">Middle name</string>
+    <string name="btn_editTextWithClear">Edit Text with Clear Button</string>
+    <string name="btn_customView">Custom view</string>
 </resources>

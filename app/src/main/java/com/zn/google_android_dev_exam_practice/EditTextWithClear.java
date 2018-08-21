@@ -13,6 +13,8 @@ import android.view.View;
 /**
  * A custom edit text class that includes a clear ('x') button at the end of the view that
  * clears text when pressed. Supports RTL layouts
+ * <p>
+ * Tutorial: https://google-developer-training.github.io/android-developer-advanced-course-practicals/unit-5-advanced-graphics-and-views/lesson-10-custom-views/10-1a-p-using-custom-views/10-1a-p-using-custom-views.html
  */
 public class EditTextWithClear extends AppCompatEditText {
 
