@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GoogleAndroidDevCert_PreAssessment</string>
+    <string name="last_name">Last name</string>
 </resources>
