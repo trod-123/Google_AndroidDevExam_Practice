@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditTextWithClearActivity"></activity>
+        <activity android:name=".EditTextWithClearActivity" />
+        <activity android:name=".CustomFanControllerActivity"></activity>
     </application>
 
 </manifest>
