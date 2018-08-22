@@ -119,9 +119,13 @@ public class DialView extends View {
                 // Set dial background color to green if selection is >= 1.
                 if (mActiveSelection >= 1) {
                     mDialPaint.setColor(mFanOnColor);
+                    setContentDescription("This is a dial. Fan is currently at speed " +
+                            mActiveSelection + ". Double tap on it to change the fan speed");
                 } else {
                     mDialPaint.setColor(mFanOffColor);
+                    setContentDescription("This is a dial. Fan is currently off. Double tap on it to turn on the fan");
                 }
+
                 // Redraw the view.
                 invalidate();
             }

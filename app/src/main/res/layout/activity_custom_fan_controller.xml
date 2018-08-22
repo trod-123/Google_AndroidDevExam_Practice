@@ -30,6 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/customViewLabel"
+        android:contentDescription="This is a dial. Fan is currently off. Double tap on it to turn on the fan"
         app:fanOnColor="#ffffff"
         app:fanOffColor="#000000"/>
 
