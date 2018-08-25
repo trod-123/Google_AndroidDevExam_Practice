@@ -2,6 +2,7 @@ package com.zn.google_android_dev_exam_practice.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -28,6 +29,25 @@ public class Task {
         mTaskName = taskName;
         mDueDate = dueDate;
         mCompleted = false;
+    }
+
+    /**
+     * Creates a task with a specified id
+     * <p>
+     * Because Room only expects one constructor per Entity class, annotate with {@code @Ignore}
+     * since we only want to use this when editing tasks
+     *
+     * @param id
+     * @param taskName
+     * @param dueDate
+     * @param completed
+     */
+    @Ignore
+    public Task(long id, @NonNull String taskName, long dueDate, boolean completed) {
+        _id = id;
+        mTaskName = taskName;
+        mDueDate = dueDate;
+        mCompleted = completed;
     }
 
     public void setId(long id) {

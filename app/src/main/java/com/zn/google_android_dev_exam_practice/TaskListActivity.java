@@ -4,10 +4,12 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.Toast;
 
@@ -49,6 +51,23 @@ public class TaskListActivity extends AppCompatActivity {
         });
         mRecyclerTaskView.setAdapter(mTaskAdapter);
 
+        // Enable swipe gestures for RecyclerView
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+                0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+                int position = viewHolder.getAdapterPosition();
+                Task task = mTaskAdapter.getTaskAtPosition(position);
+                mTaskViewModel.delete(task.getId());
+            }
+        });
+        helper.attachToRecyclerView(mRecyclerTaskView);
+
         // This is the proper way of getting view models. You do NOT instantiate it here.
         // As its name indicated, ViewModelProviders is what manages your app's view models. The
         // view models are created when the app first starts, so all you need to do is grab it
@@ -75,7 +94,7 @@ public class TaskListActivity extends AppCompatActivity {
             }
         } else if (requestCode == 2 && resultCode == RESULT_OK) {
             if (data != null) {
-                if (data.getAction() != null && data.getAction().equals("delete") ) {
+                if (data.getAction() != null && data.getAction().equals("delete")) {
                     mTaskViewModel.delete(data.getLongExtra("taskId", -1));
                 } else {
                     Task task = new Task(data.getStringExtra("taskName"), data.getLongExtra("taskDeadline", 0L));
