@@ -81,6 +81,8 @@ public class AddTaskActivity extends AppCompatActivity {
 
             }
         });
+
+        mTaskName.requestFocus();
     }
 
     public void addNewTask(View view) {
