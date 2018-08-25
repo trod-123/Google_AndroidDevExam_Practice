@@ -10,6 +10,8 @@ import java.util.List;
 
 /**
  * Creating a working Dao is easy! All you need is the below and let Room take care of the rest
+ *
+ * It seems that we just define the methods here and RoomDatabase writes up the implementations
  */
 @Dao
 public interface TaskDao {
@@ -28,4 +30,15 @@ public interface TaskDao {
 
     @Query("SELECT * from task_table ORDER BY dueDate ASC")
     LiveData<List<Task>> getAllTasks();
+
+    @Query("SELECT * from task_table WHERE _id is :id")
+    Task getTaskById(long id);
+
+    /**
+     * Returns a random task from the database. If there are no tasks in the database, returns
+     * an empty array
+     * @return
+     */
+    @Query("SELECT * FROM task_table LIMIT 1")
+    Task[] getAnyTask();
 }

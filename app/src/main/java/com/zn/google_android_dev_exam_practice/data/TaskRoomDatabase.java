@@ -37,13 +37,15 @@ public abstract class TaskRoomDatabase extends RoomDatabase {
     }
 
     /**
-     * Adding a callback during the INSTANCE build() process that populates the database upon
-     * first creation
+     * Adding a callback during the INSTANCE build() process that populates the database
+     *
+     * Preferable to call onOpen to perform database inits and refreshes than in onCreate since
+     * onCreate is only called once
      */
     private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback() {
         @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-            super.onCreate(db);
+        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+            super.onOpen(db);
             new PopulateDbAsync(INSTANCE).execute();
         }
     };
@@ -60,6 +62,18 @@ public abstract class TaskRoomDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
+            if (db.taskDao().getAnyTask().length == 0) {
+                // Initialize data if database is null
+                loadDummyData();
+            }
+
+            return null;
+        }
+
+        /**
+         * Needs to be called from a worker thread
+         */
+        private void loadDummyData() {
             Task task1 = new Task("First task for the day!",
                     System.currentTimeMillis() - 100000L);
             Task task2 = new Task("Second task for the day!",
@@ -76,8 +90,6 @@ public abstract class TaskRoomDatabase extends RoomDatabase {
             db.taskDao().insert(task3);
             db.taskDao().insert(task4);
             db.taskDao().insert(task5);
-
-            return null;
         }
     }
 }
