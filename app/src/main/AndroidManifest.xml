@@ -17,7 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".EditTextWithClearActivity" />
-        <activity android:name=".CustomFanControllerActivity"></activity>
+        <activity android:name=".CustomFanControllerActivity" />
+        <activity android:name=".TaskListActivity" />
+        <activity android:name=".AddTaskActivity"></activity>
     </application>
 
 </manifest>

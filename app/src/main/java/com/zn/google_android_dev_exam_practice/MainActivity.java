@@ -20,4 +20,8 @@ public class MainActivity extends AppCompatActivity {
     public void launchCustomView(View view) {
         startActivity(new Intent(MainActivity.this, CustomFanControllerActivity.class));
     }
+
+    public void launchTaskActivity(View view) {
+        startActivity(new Intent(MainActivity.this, TaskListActivity.class));
+    }
 }

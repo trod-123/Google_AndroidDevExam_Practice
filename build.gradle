@@ -30,4 +30,6 @@ ext {
     butterknifeVersion = '8.8.1'
     timberVersion = '4.7.1'
     glideVersion = '4.8.0'
+    roomVersion = '1.1.1'
+    archLifecycleVersion = '1.1.1'
 }

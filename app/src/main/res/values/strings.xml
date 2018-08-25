@@ -5,4 +5,7 @@
     <string name="middle_name">Middle name</string>
     <string name="btn_editTextWithClear">Edit Text with Clear Button</string>
     <string name="btn_customView">Custom view</string>
+
+    <string name="due_date">Due: %1$s</string>
+    <string name="btn_recyclerView">Task Activity with Room</string>
 </resources>
