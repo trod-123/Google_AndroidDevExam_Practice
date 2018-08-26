@@ -8,4 +8,6 @@
 
     <string name="due_date">Due: %1$s</string>
     <string name="btn_recyclerView">Task Activity with Room</string>
+    <string name="nav_drawer_open">Open!</string>
+    <string name="nav_drawer_close">Close!</string>
 </resources>

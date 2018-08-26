@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:iconTint="@android:color/darker_gray"
+            android:title="Settings"/>
+    </group>
+
+    <item android:title="Group hug!">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_share_black_24dp"
+                android:iconTint="@android:color/darker_gray"
+                android:title="Share"/>
+        </menu>
+    </item>
+</menu>
