@@ -21,7 +21,7 @@
         <activity android:name=".EditTextWithClearActivity" />
         <activity android:name=".CustomFanControllerActivity" />
         <activity android:name=".TaskListActivity" />
-        <activity android:name=".AddTaskActivity"></activity>
+        <activity android:name=".AddTaskActivity" />
 
         <service
             android:name=".service.NotificationJobService"
@@ -29,6 +29,15 @@
         <service
             android:name=".service.AsyncTaskJobService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.zn.google_android_dev_exam_practice.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

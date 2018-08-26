@@ -4,7 +4,6 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         int menuId = menuItem.getItemId();
         switch (menuId) {
             case R.id.nav_settings:
-                Toast.makeText(this, "Settings!", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                 return true;
             case R.id.nav_share:
                 Toast.makeText(this, "Share!", Toast.LENGTH_SHORT).show();
