@@ -1,12 +1,10 @@
 package com.zn.google_android_dev_exam_practice.data;
 
-import android.arch.lifecycle.LiveData;
+import android.arch.paging.DataSource;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
-
-import java.util.List;
 
 /**
  * Creating a working Dao is easy! All you need is the below and let Room take care of the rest
@@ -28,8 +26,11 @@ public interface TaskDao {
     @Query("DELETE FROM task_table WHERE _id is :id")
     void delete(long id);
 
+    // The Integer type parameter tells Room to use position-based loading under the hood
+    // DataSource.Factory allows creation of LiveData<PagedList> to be created
+    // The PositionalDataSource is good for lists of fixed sizes
     @Query("SELECT * from task_table ORDER BY dueDate ASC")
-    LiveData<List<Task>> getAllTasks();
+    DataSource.Factory<Integer, Task> getAllTasks();
 
     @Query("SELECT * from task_table WHERE _id is :id")
     Task getTaskById(long id);

@@ -48,6 +48,9 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$archLifecycleVersion"
     annotationProcessor "android.arch.lifecycle:compiler:$archLifecycleVersion"
 
+    // Paging
+    implementation "android.arch.paging:runtime:$pagingVersion"
+
     // design
     implementation "com.android.support:design:28.0.0-rc01"
 

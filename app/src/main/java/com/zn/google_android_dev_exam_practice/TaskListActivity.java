@@ -2,6 +2,7 @@ package com.zn.google_android_dev_exam_practice;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.arch.paging.PagedList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,8 +16,6 @@ import android.widget.Toast;
 
 import com.zn.google_android_dev_exam_practice.data.Task;
 import com.zn.google_android_dev_exam_practice.data.TaskViewModel;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -75,10 +74,10 @@ public class TaskListActivity extends AppCompatActivity {
         // helps allow view models to live outside the activity, fragment, or view it's hosted in
         mTaskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
 
-        mTaskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
+        mTaskViewModel.getAllTasks().observe(this, new Observer<PagedList<Task>>() {
             @Override
-            public void onChanged(@Nullable List<Task> tasks) {
-                mTaskAdapter.setTasksList(tasks);
+            public void onChanged(@Nullable PagedList<Task> tasks) {
+                mTaskAdapter.submitList(tasks);
             }
         });
     }

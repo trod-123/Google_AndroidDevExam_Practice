@@ -3,9 +3,8 @@ package com.zn.google_android_dev_exam_practice.data;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.paging.PagedList;
 import android.support.annotation.NonNull;
-
-import java.util.List;
 
 /**
  * ViewModels live beyond the activity and fragment lifecycle, so it can serve as an effective
@@ -24,7 +23,7 @@ import java.util.List;
  */
 public class TaskViewModel extends AndroidViewModel {
     private TaskRepository mRepository;
-    private LiveData<List<Task>> mAllTasks;
+    private LiveData<PagedList<Task>> mAllTasks;
 
     public TaskViewModel(@NonNull Application application) {
         super(application);
@@ -32,7 +31,7 @@ public class TaskViewModel extends AndroidViewModel {
         mAllTasks = mRepository.getAllTasks();
     }
 
-    public LiveData<List<Task>> getAllTasks() {
+    public LiveData<PagedList<Task>> getAllTasks() {
         return mAllTasks;
     }
 

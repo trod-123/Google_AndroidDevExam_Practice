@@ -2,9 +2,9 @@ package com.zn.google_android_dev_exam_practice.data;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.arch.paging.LivePagedListBuilder;
+import android.arch.paging.PagedList;
 import android.os.AsyncTask;
-
-import java.util.List;
 
 /**
  * Repositories abstract access to multiple data sources, if your app has any. It is a convenience
@@ -17,15 +17,19 @@ import java.util.List;
  */
 public class TaskRepository {
     private TaskDao mTaskDao;
-    private LiveData<List<Task>> mAllTasks;
+    private LiveData<PagedList<Task>> mAllTasks;
+
+    private final static int PAGE_SIZE = 10;
 
     TaskRepository(Application application) {
         TaskRoomDatabase db = TaskRoomDatabase.getDatabase(application);
         mTaskDao = db.taskDao();
-        mAllTasks = mTaskDao.getAllTasks(); // retrieves cached data
+        // To get LiveData PagedLists from dao, use the LivePagedListBuilder<>. This is where you
+        // specify the sizes of each page
+        mAllTasks = new LivePagedListBuilder<>(mTaskDao.getAllTasks(), PAGE_SIZE).build(); // retrieves cached data
     }
 
-    LiveData<List<Task>> getAllTasks() {
+    LiveData<PagedList<Task>> getAllTasks() {
         return mAllTasks;
     }
 
