@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -67,9 +68,24 @@ public class MainActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
 
+        // Since onCreate() is not called again when activity returns from background, we need to
+        // update UI from any sp changes here
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
         int delay = Integer.parseInt(sp.getString("delay_notifications", "0"));
         mButtonDelay.setText(String.format("Give me a notification in %s secs!", Integer.toString(delay)));
+
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(mNavView)) {
+            // Close the drawer if it's opened
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            // If the drawer is already closed, then go back as usual
+            super.onBackPressed();
+        }
     }
 
     public void launchEditTextWithClear(View view) {
@@ -101,6 +117,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                 return true;
             case R.id.nav_share:
+                mDrawerLayout.closeDrawer(GravityCompat.START);
                 Toast.makeText(this, "Share!", Toast.LENGTH_SHORT).show();
                 return true;
         }
