@@ -21,16 +21,45 @@ public class TaskRepository {
 
     private final static int PAGE_SIZE = 10;
 
-    TaskRepository(Application application) {
+    TaskRepository(Application application, SortingTasks sort) {
         TaskRoomDatabase db = TaskRoomDatabase.getDatabase(application);
         mTaskDao = db.taskDao();
         // To get LiveData PagedLists from dao, use the LivePagedListBuilder<>. This is where you
         // specify the sizes of each page
-        mAllTasks = new LivePagedListBuilder<>(mTaskDao.getAllTasks(), PAGE_SIZE).build(); // retrieves cached data
+        switch (sort) {
+            case DATE_ASC:
+                mAllTasks = new LivePagedListBuilder<>(mTaskDao.getAllTasks(),
+                        PAGE_SIZE).build();
+                break;
+            case DATE_DESC:
+                mAllTasks = new LivePagedListBuilder<>(mTaskDao.getAllTasksDescendingDueDate(),
+                        PAGE_SIZE).build();
+                break;
+            case NAME_ASC:
+                mAllTasks = new LivePagedListBuilder<>(mTaskDao.getAllTasksAscendingName(),
+                        PAGE_SIZE).build();
+                break;
+            case NAME_DESC:
+                mAllTasks = new LivePagedListBuilder<>(mTaskDao.getAllTasksDescendingName(),
+                        PAGE_SIZE).build();
+                break;
+            case STATUS_ASC:
+                mAllTasks = new LivePagedListBuilder<>(mTaskDao.getAllTasksAscendingStatus(),
+                        PAGE_SIZE).build();
+                break;
+            case STATUS_DESC:
+                mAllTasks = new LivePagedListBuilder<>(mTaskDao.getAllTasksDescendingStatus(),
+                        PAGE_SIZE).build();
+                break;
+        }
     }
 
     LiveData<PagedList<Task>> getAllTasks() {
         return mAllTasks;
+    }
+
+    enum SortingTasks {
+        DATE_ASC, DATE_DESC, NAME_ASC, NAME_DESC, STATUS_ASC, STATUS_DESC
     }
 
     public void insert(Task task) {

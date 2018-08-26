@@ -4,6 +4,7 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,9 +12,11 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity
     Toolbar mToolbar;
     @BindView(R.id.navigation_view)
     NavigationView mNavView;
+    @BindView(R.id.btn_delayedJob)
+    Button mButtonDelay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +61,15 @@ public class MainActivity extends AppCompatActivity
         Glide.with(this)
                 .load(Uri.parse("file:///android_asset/web_hi_res_512.png"))
                 .into(imageView);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        int delay = Integer.parseInt(sp.getString("delay_notifications", "0"));
+        mButtonDelay.setText(String.format("Give me a notification in %s secs!", Integer.toString(delay)));
     }
 
     public void launchEditTextWithClear(View view) {

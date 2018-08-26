@@ -4,6 +4,8 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.paging.PagedList;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
 /**
@@ -27,7 +29,30 @@ public class TaskViewModel extends AndroidViewModel {
 
     public TaskViewModel(@NonNull Application application) {
         super(application);
-        mRepository = new TaskRepository(application);
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(application);
+        String sortPref = sp.getString("tasks_sort", "1");
+        TaskRepository.SortingTasks sort;
+        switch (sortPref) {
+            case "1":
+                sort = TaskRepository.SortingTasks.DATE_ASC;
+                break;
+            case "2":
+                sort = TaskRepository.SortingTasks.DATE_DESC;
+                break;
+            case "3":
+                sort = TaskRepository.SortingTasks.NAME_ASC;
+                break;
+            case "4":
+                sort = TaskRepository.SortingTasks.STATUS_ASC;
+                break;
+            case "5":
+                sort = TaskRepository.SortingTasks.STATUS_DESC;
+                break;
+            default:
+                sort = TaskRepository.SortingTasks.DATE_ASC;
+        }
+        mRepository = new TaskRepository(application, sort);
         mAllTasks = mRepository.getAllTasks();
     }
 
