@@ -1,8 +1,11 @@
 package com.zn.google_android_dev_exam_practice;
 
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.arch.paging.PagedList;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,11 +14,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.zn.google_android_dev_exam_practice.data.Task;
 import com.zn.google_android_dev_exam_practice.data.TaskViewModel;
+import com.zn.google_android_dev_exam_practice.service.NotificationJobService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,6 +90,31 @@ public class TaskListActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_tasks, menu);
+        // Return true to display the menu
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_deleteAllTasks:
+                Toast.makeText(this, "No! I will not delete! Yet", Toast.LENGTH_SHORT)
+                        .show();
+                return true;
+            case R.id.action_scheduleReminders:
+                scheduleReminders();
+                Toast.makeText(this, "Reminder scheduled!", Toast.LENGTH_SHORT)
+                        .show();
+                return true;
+        }
+        return false;
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == RESULT_OK) {
@@ -108,5 +140,14 @@ public class TaskListActivity extends AppCompatActivity {
     public void launchAddNewTaskActivity(View view) {
         startActivityForResult(new Intent(
                 TaskListActivity.this, AddTaskActivity.class), 1);
+    }
+
+    private void scheduleReminders() {
+        JobScheduler scheduler = (JobScheduler) getSystemService(JOB_SCHEDULER_SERVICE);
+        ComponentName cn = new ComponentName(getPackageName(), NotificationJobService.class.getName());
+        JobInfo.Builder builder = new JobInfo.Builder(123, cn)
+                .setRequiresCharging(true);
+        JobInfo jobInfo = builder.build();
+        scheduler.schedule(jobInfo);
     }
 }

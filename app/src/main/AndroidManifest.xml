@@ -20,6 +20,13 @@
         <activity android:name=".CustomFanControllerActivity" />
         <activity android:name=".TaskListActivity" />
         <activity android:name=".AddTaskActivity"></activity>
+
+        <service
+            android:name=".service.NotificationJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name=".service.AsyncTaskJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>
 
 </manifest>

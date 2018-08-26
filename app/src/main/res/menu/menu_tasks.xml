@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_scheduleReminders"
+        android:icon="@drawable/ic_access_time_black_24dp"
+        android:iconTint="@android:color/white"
+        android:title="Schedule reminders"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_deleteAllTasks"
+        android:icon="@drawable/ic_clear_black_24dp"
+        android:title="Delete all tasks"
+        app:showAsAction="never" />
+</menu>
