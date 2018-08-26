@@ -40,4 +40,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_customView" />
 
+    <Button
+        android:id="@+id/btn_delayedJob"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="showDelayedNotification"
+        android:text="Give me a notification in 5 secs!"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_recyclerView" />
+
 </android.support.constraint.ConstraintLayout>
